@@ -1,0 +1,15 @@
+#canvas {
+  border: 5px solid red;
+  background-color: blue;
+  position: absolute;
+  top: 100px;
+}
+
+body {
+  background-color: black;
+}
+
+#score {
+  color: white;
+  text-align: center;
+}
