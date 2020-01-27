@@ -65,6 +65,11 @@ function Food(x,y) {
     newY = 100 + (Math.floor(Math.random() * 12) * 50);
     this.x = newX;
     this.y = newY;
+    //makes sure new food isnt generated on part of the body
+    for (i=0;i<body.length;i++) {
+      if (this.x == body[i].x && this.y == body[i].y)
+      this.generateFoodPosition()
+    }
   },
   //draws food
   this.draw = function() {
@@ -155,6 +160,7 @@ head = {
 function gameUpdate() {
     setTimeout(function() {
       if (gamerun) {
+      window.addEventListener('keypress',changeDirection)
       head.touchingBody();
       head.touchingFood();
       ctx.clearRect(0,0,1400,800);
@@ -172,7 +178,7 @@ function gameUpdate() {
       }
       requestAnimationFrame(gameUpdate);
     };
-  }, 1000/8)
+  }, 1000/10)
 }
 
 //keydown function, used to change the direction of the snake mostly but pressing 'r' reloads the page to start the game
@@ -206,8 +212,7 @@ function gameOver() {
   document.getElementById("score").innerHTML = "SCORE: " + score + ".   Press 'r' to restart"
 };
 
-//listener for keypress and first RAF
-window.addEventListener('keypress',changeDirection)
+//first RAF
 requestAnimationFrame(gameUpdate);
 
 
