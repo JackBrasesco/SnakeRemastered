@@ -1,16 +1,23 @@
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext('2d');
+//arrays for food and body (food array exists in case I want to add a special food 
+//that has a chance of appearing in which case there could be two foods at once)
 food = []
 body = []
+//setup score
 score = 0
 document.getElementById("score").innerHTML = "SCORE: " + score
+//game starts as true by default
 gamerun = true
+//load first piece of food
 startingFood = new Food(0,0)
 startingFood.generateFoodPosition();
 food.push(startingFood);
+//load image for food
 var apple = new Image()
 apple.src = 'apple.png'
 
+//body part constructor
 function Body(x,y,id) {
   this.id = id;
   this.x = x,
@@ -37,7 +44,7 @@ function Body(x,y,id) {
   }
 };
 
-
+//food constructor
 function Food(x,y) {
   this.x = x,
   this.y = y,
@@ -55,6 +62,7 @@ function Food(x,y) {
   }
 }
 
+//object for the head of the snake
 head = {
   x: 400,
   y: 500,
@@ -118,6 +126,7 @@ head = {
   }
 }
 
+//basically the update function in phaser, checks for collisions and moves and draws snake and food for 8 frames a second
 function gameUpdate() {
     setTimeout(function() {
       if (gamerun) {
@@ -141,7 +150,9 @@ function gameUpdate() {
   }, 1000/8)
 }
 
+//keydown function, used to change the direction of the snake mostly but pressing 'r' reloads the page to start the game
 function changeDirection(e) {
+  console.log(e.keyCode)
   if (e.keyCode == 115 && head.direction != 'up') {
     head.direction = ('down');
   }
@@ -154,12 +165,17 @@ function changeDirection(e) {
   else if (e.keyCode == 100 && head.direction != 'left') {
     head.direction = ("right")
   }
-}
+  else if (e.keyCode == 114) {
+    window.location.reload(true)
+  }
+};
 
+//stops the snake and adds the restart message to the top of the screen
 function gameOver() {
   gamerun = false
-}
-
+  document.getElementById("score").innerHTML = "SCORE: " + score + ".   Press 'r' to restart"
+};
 
 window.addEventListener('keypress',changeDirection)
 requestAnimationFrame(gameUpdate);
+
