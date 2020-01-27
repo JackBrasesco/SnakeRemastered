@@ -183,7 +183,6 @@ function gameUpdate() {
 
 //keydown function, used to change the direction of the snake mostly but pressing 'r' reloads the page to start the game
 function changeDirection(e) {
-  console.log(e.keyCode)
   //on 'S' keypress
   if (e.keyCode == 115 && head.direction != 'up') {
     head.direction = ('down');
@@ -214,5 +213,4 @@ function gameOver() {
 
 //first RAF
 requestAnimationFrame(gameUpdate);
-
 
